@@ -25,7 +25,7 @@ function createTeam() {
     {
         type: "list",
         name: "role",
-        message: "Select Team Member's role:",
+        message: "Select Team Member's Role:",
         choices: ["Manager", "Engineer", "Intern"]
     },
     {
@@ -53,11 +53,11 @@ function createTeam() {
         },
         {
             type: "list",
-            name: "moreMembers",
+            name: "addMember",
             message: "Would you like to add more team members?",
             choices: ["Yes", "No"]
         }])
-        .then(({ roleInfo, moreMembers }) => {
+        .then(({ roleInfo, addMember }) => {
             let newMember;
 
             if (role === "Manager") {
@@ -70,7 +70,7 @@ function createTeam() {
            
             employees.push(newMember);
 
-            if (moreMembers === "Yes") {
+            if (addMember === "Yes") {
                 createTeam();
             } else {
                 buildHTML();
