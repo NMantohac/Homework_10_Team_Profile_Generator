@@ -14,6 +14,7 @@ const employees = [];
 
 function buildHTML() {
     fs.writeFileSync(outputPath, render(employees), "utf-8")
+    console.log("HTML succesfully rendered!")
 }
 
 function createTeam() {
