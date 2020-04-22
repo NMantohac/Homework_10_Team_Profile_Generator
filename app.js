@@ -1,3 +1,4 @@
+// Require Dependencies and Employee data
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -6,15 +7,20 @@ const path = require("path");
 const util = require("util");
 const fs = require("fs");
 
+// Returns fs.writeFile as a promise
 const writeFileAsync = util.promisify(fs.writeFile);
 
+// Output path and directory
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+// Require htmlRenderer.js file
 const render = require("./lib/htmlRenderer");
 
+// Employees array that will have objects
 const employees = [];
 
+// Renders the employees array of objects to team.html in utf-8 format
 function buildHTML() {
     writeFileAsync(outputPath, render(employees), "utf-8")
         .then(response => {
@@ -25,12 +31,14 @@ function buildHTML() {
         })
 }
 
+// Series of prompts for the user to answer, and the logic behind displaying the right information
 const createTeam = async () => {
     try {
         await inquirer.prompt([
-            {
-                message: "Enter Team Member's Name:",
-                name: "name"
+            {   
+                type: "input",
+                name: "name",
+                message: "Enter Team Member's Name:"
             },
             {
                 type: "list",
@@ -39,14 +47,17 @@ const createTeam = async () => {
                 choices: ["Manager", "Engineer", "Intern"]
             },
             {
-                message: "Enter Team Member's ID:",
-                name: "id"
+                type: "input",
+                name: "id",
+                message: "Enter Team Member's ID:"
             },
             {
-                message: "Enter Team Member's Email Address:",
-                name: "email"
+                type: "input",
+                name: "email",
+                message: "Enter Team Member's Email Address:"
             }])
-
+        
+        // If-else statement for the specific employee role and role info
         .then(({ name, role, id, email }) => {
             let roleInfo = "";
         
@@ -58,9 +69,12 @@ const createTeam = async () => {
                 roleInfo = "School Name";
             }
         
-        inquirer.prompt([{
-                message: `Enter Team Member's ${roleInfo}:`,
-                name: "roleInfo"
+        // First prompt based on role info, and second prompt is for adding more employees depending on choice    
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "roleInfo",
+                message: `Enter Team Member's ${roleInfo}:`
             },
             {
                 type: "list",
@@ -69,6 +83,7 @@ const createTeam = async () => {
                 choices: ["Yes", "No"]
             }])
             
+        // Logic behind adding a new employee member and rendering the html based on provided info    
         .then(({ roleInfo, addMember }) => {
             let newMember;
         
