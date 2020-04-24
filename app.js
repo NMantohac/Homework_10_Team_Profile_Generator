@@ -34,7 +34,7 @@ function buildHTML() {
 // Series of prompts for the user to answer, and the logic behind displaying the right information
 const createTeam = async () => {
     try {
-        await inquirer.prompt([
+        const { name, role, id, email } = await inquirer.prompt([
             {   
                 type: "input",
                 name: "name",
@@ -58,23 +58,22 @@ const createTeam = async () => {
             }])
         
         // If-else statement for the specific employee role and role info
-        .then(({ name, role, id, email }) => {
-            let roleInfo = "";
+        let roleSpecific = "";
         
-            if (role === "Manager") {
-                roleInfo = "Office Number";
-            } else if (role === "Engineer") {
-                roleInfo = "GitHub Username";
-            } else {
-                roleInfo = "School Name";
-            }
+        if (role === "Manager") {
+            roleSpecific = "Office Number";
+        } else if (role === "Engineer") {
+            roleSpecific = "GitHub Username";
+        } else {
+            roleSpecific = "School Name";
+        }
         
         // First prompt based on role info, and second prompt is for adding more employees depending on choice    
-        inquirer.prompt([
+        const { roleInfo, addMember } = await inquirer.prompt([
             {
                 type: "input",
                 name: "roleInfo",
-                message: `Enter Team Member's ${roleInfo}:`
+                message: `Enter Team Member's ${roleSpecific}:`
             },
             {
                 type: "list",
@@ -84,26 +83,23 @@ const createTeam = async () => {
             }])
             
         // Logic behind adding a new employee member and rendering the html based on provided info    
-        .then(({ roleInfo, addMember }) => {
-            let newMember;
+        let newMember;
         
-            if (role === "Manager") {
-                newMember = new Manager(name, id, email, roleInfo);
-            } else if (role === "Engineer") {
-                newMember = new Engineer(name, id, email, roleInfo);
-            } else {
-                newMember = new Intern(name, id, email, roleInfo);
-            }
+        if (role === "Manager") {
+            newMember = new Manager(name, id, email, roleInfo);
+        } else if (role === "Engineer") {
+            newMember = new Engineer(name, id, email, roleInfo);
+        } else {
+            newMember = new Intern(name, id, email, roleInfo);
+        }
                 
-            employees.push(newMember);
+        employees.push(newMember);
         
-            if (addMember === "Yes") {
-                createTeam();
-            } else {
-                buildHTML();
-            }   
-            });
-        });
+        if (addMember === "Yes") {
+            createTeam();
+        } else {
+            buildHTML();
+        }   
 
     } catch(err) {
         console.log(err);
