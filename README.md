@@ -7,7 +7,7 @@ URL Links:
   
 ## Description:
   - A team profile generator that renders an HTML page based on the user's answers to a series of prompts utilizing Inquirer (npm).
-    The series of prompts will show up after the user clones/downloads this repo, and runs **npm install** and **npm app.js** in 
+    The series of prompts will show up after the user clones/downloads this repo, and runs **npm install** and **node app.js** in 
     VS Code's terminal. In general, the HTML page displays the team member's name, role, id, email, and a specific piece of information 
     that is unique to that role. For managers, it is the office number; for engineers, it is the GitHub name; and for interns, 
     it is the school name. In addition, the user can run test cases and check if they pass by typing in **npm run test** 
