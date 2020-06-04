@@ -1,7 +1,7 @@
 # Homework_10_Team_Profile_Generator
 
 URL Links:
-  1) GitHub: https://github.com/NMantohac/Homework_10_Team_Profile_Generator
+  1) GitHub: https://github.com/NMantohac/Team-Profile-Generator
   2) Overall Function: https://drive.google.com/file/d/1Xz4UVmrmbjhqw25QzQOEXHg6UMvYJGv4/view
   3) Passed Test Cases: https://drive.google.com/file/d/1AL9r3vKXRCeGX31akKkBy6p1oANNcVjx/view
   
